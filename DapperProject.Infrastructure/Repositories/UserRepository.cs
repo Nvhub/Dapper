@@ -3,6 +3,7 @@ using DapperProject.Core.Entities;
 using Dapper;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using System.Data;
 
 namespace DapperProject.Infrastructure.Repositories
 {
@@ -22,9 +23,10 @@ namespace DapperProject.Infrastructure.Repositories
         public async Task<IEnumerable<User>> GetAllAsync()
         {
             try
-            { 
-                string sql = "SELECT * FROM users";
-                var users = await _connection.QueryAsync<User>(sql);
+            {
+                //string sql = "SELECT * FROM users";
+                var procedure = "get_all_or_single";
+                var users = await _connection.QueryAsync<User>("get_all_or_single", commandType : CommandType.StoredProcedure);
                 return users;
             }
             catch
@@ -37,8 +39,11 @@ namespace DapperProject.Infrastructure.Repositories
         {
             try
             {
-                string sql = "SELECT * FROM users WHERE id=@Id";
-                User user = await _connection.QueryFirstOrDefaultAsync<User>(sql, new {Id = id});
+                //string sql = "SELECT * FROM users WHERE id=@Id";
+                var parameter = new DynamicParameters();
+                var procedure = "get_all_or_single";
+                parameter.Add("Id", id);
+                User user = await _connection.QueryFirstOrDefaultAsync<User>(procedure, parameter, commandType : CommandType.StoredProcedure);
                 return user;
             }
             catch
@@ -48,24 +53,21 @@ namespace DapperProject.Infrastructure.Repositories
         }
         public async Task<IEnumerable<User>> AddAsync(User entity)
         {
-            try
-            {
-                string sql = "INSERT INTO users (firstName, lastName, userName, email) VALUES (@FirstName, @LastName, @UserName, @Email)";
-                await _connection.ExecuteAsync(sql, entity);
+
+                //string sql = "INSERT INTO users (firstName, lastName, userName, email) VALUES (@FirstName, @LastName, @UserName, @Email)";
+                var procedure = "insert_user";
+                await _connection.ExecuteAsync(procedure, entity, commandType : CommandType.StoredProcedure);
                 return await GetAllAsync();
-            }
-            catch
-            {
-                return null;
-            }
+  
         }
 
         public async Task<bool> CreateTableAsync(string table_name)
         {
             try
             {
-                string sql = $"CREATE TABLE {table_name} (id int NOT NULL IDENTITY(1,1) PRIMARY KEY,userName varchar(255) NOT NULL ,firstName varchar(255) NOT NULL,lastName varchar(255) NOT NULL, email varchar(255) NOT NULL)";
-                var users = await _connection.QueryAsync(sql);
+                //string sql = $"CREATE TABLE {table_name} (id int NOT NULL IDENTITY(1,1) PRIMARY KEY,userName varchar(255) NOT NULL ,firstName varchar(255) NOT NULL,lastName varchar(255) NOT NULL, email varchar(255) NOT NULL)";
+                var procedure = "create_user_table";
+                var users = await _connection.QueryAsync(procedure, commandType : CommandType.StoredProcedure);
                 return true;
             }
             catch
@@ -78,8 +80,11 @@ namespace DapperProject.Infrastructure.Repositories
         {
             try
             {
-                string sql = "DELETE FROM users WHERE id=@Id";
-                int user = await _connection.ExecuteAsync(sql, new { Id = id });
+                //string sql = "DELETE FROM users WHERE id=@Id";
+                var procedure = "delete_user";
+                var parameter = new DynamicParameters();
+                parameter.Add("Id", id);
+                int user = await _connection.ExecuteAsync(procedure, parameter, commandType: CommandType.StoredProcedure);
                 return await GetAllAsync();
             }
             catch
@@ -92,8 +97,9 @@ namespace DapperProject.Infrastructure.Repositories
         {
             try
             {
-                string sql = $"Drop Table {table_name}";
-                var user = await _connection.QueryAsync(sql);
+                //string sql = $"Drop Table {table_name}";
+                var procedure = "drop_user_table";
+                var user = await _connection.QueryAsync(procedure, commandType: CommandType.StoredProcedure);
                 return true;
             }
             catch
@@ -109,8 +115,9 @@ namespace DapperProject.Infrastructure.Repositories
                 var user = await GetAsync(entity.Id);
                 if(user == null)
                     return null;
-                string sql = "UPDATE users SET firstName=@FirstName, lastName=@LastName, userName=@UserName, email=@Email WHERE id=@Id";
-                await _connection.ExecuteAsync(sql, entity);
+                //string sql = "UPDATE users SET firstName=@FirstName, lastName=@LastName, userName=@UserName, email=@Email WHERE id=@Id";
+                var procedure = "update_user";
+                await _connection.ExecuteAsync(procedure, entity, commandType: CommandType.StoredProcedure);
                 return await GetAsync(entity.Id);
             }
             catch

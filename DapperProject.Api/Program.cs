@@ -1,5 +1,6 @@
 using DapperProject.Infrastructure.Repositories;
 using DapperProject.Application.Interfaces;
+using DapperProject.Api.Middlewares;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,11 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
+app.UseLogUrlMiddleware();
+
 // Configure the HTTP request pipeline.
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
