@@ -1,0 +1,17 @@
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\bin\Debug\net6.0\DapperProject.Mailer.exe
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\bin\Debug\net6.0\DapperProject.Mailer.deps.json
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\bin\Debug\net6.0\DapperProject.Mailer.runtimeconfig.json
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\bin\Debug\net6.0\DapperProject.Mailer.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\bin\Debug\net6.0\DapperProject.Mailer.pdb
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\DapperProject.Mailer.csproj.AssemblyReference.cache
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\DapperProject.Mailer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\DapperProject.Mailer.AssemblyInfoInputs.cache
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\DapperProject.Mailer.AssemblyInfo.cs
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\DapperProject.Mailer.csproj.CoreCompileInputs.cache
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\DapperProject.Mailer.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\refint\DapperProject.Mailer.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\DapperProject.Mailer.pdb
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\DapperProject.Mailer.genruntimeconfig.cache
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\ref\DapperProject.Mailer.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\bin\Debug\net6.0\RabbitMQ.Client.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Mailer\obj\Debug\net6.0\DapperProject.Mailer.csproj.CopyComplete

@@ -84,3 +84,5 @@ C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\obj\Debug\net6.0
 C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\obj\Debug\net6.0\DapperProject.Api.pdb
 C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\obj\Debug\net6.0\DapperProject.Api.genruntimeconfig.cache
 C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\obj\Debug\net6.0\ref\DapperProject.Api.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\RabbitMQ.Client.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\Newtonsoft.Json.dll

@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using DapperProject.Application.Interfaces;
 using DapperProject.Core.Entities;
+using Microsoft.Extensions.Caching.Memory;
+using RabbitMQ.Client;
+using System.Text;
 
 namespace DapperProject.Api.Controllers
 {
@@ -9,11 +12,40 @@ namespace DapperProject.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private const string userListCacheKey = "userList";
         private readonly IUnitOfWork _models;
+        private readonly IMemoryCache _cache;
+        private readonly IRabbitMQRepository _rabbitmqRepository;
 
-        public UserController(IUnitOfWork models)
+        public UserController(IUnitOfWork models, IMemoryCache cache, IRabbitMQRepository rabbitmqRepository)
         {
             _models = models;
+            _cache = cache;
+            _rabbitmqRepository = rabbitmqRepository;
+        }
+
+        [Route("cache")]
+        [HttpGet]
+        public async Task<IActionResult> MemoryCache()
+        {
+            if (_cache.TryGetValue(userListCacheKey, out IEnumerable<User> users))
+            {
+                Console.WriteLine("caching");
+                return Ok(users);
+            }
+            else
+            {
+                users = await _models.Users.GetAllAsync();
+
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromSeconds(10))
+                .SetAbsoluteExpiration(TimeSpan.FromSeconds(50))
+                .SetPriority(CacheItemPriority.Normal)
+                .SetSize(1024);
+                _cache.Set(userListCacheKey, users, cacheEntryOptions);
+                Console.WriteLine("not caching");
+                return Ok(users);
+            }
         }
 
         [Route("table/create")]
@@ -60,8 +92,23 @@ namespace DapperProject.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             IEnumerable<User> user = await _models.Users.AddAsync(entity);
+
             if (user == null)
                 return BadRequest("data not valid");
+
+            //var factory = new ConnectionFactory() { HostName = "localhost" };
+
+            //using var connection = factory.CreateConnection();
+            //using var channel = connection.CreateModel();
+
+            //channel.QueueDeclare(queue: "sendMail", durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+            //var mail = Encoding.UTF8.GetBytes(entity.Email);
+
+            //channel.BasicPublish(exchange: "", routingKey: "sendMail",  basicProperties: null, body: mail);
+
+
+            _rabbitmqRepository.Publisher(entity.Email, "sendMail");
             return Ok(user);
         }
 

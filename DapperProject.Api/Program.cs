@@ -13,10 +13,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<IRabbitMQRepository, RabbitMQRepository>();
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
-app.UseLogUrlMiddleware();
+//app.UseLogUrlMiddleware();
 
 // Configure the HTTP request pipeline.
 
