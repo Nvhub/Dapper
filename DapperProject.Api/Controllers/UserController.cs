@@ -4,7 +4,7 @@ using DapperProject.Application.Interfaces;
 using DapperProject.Core.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using RabbitMQ.Client;
-using System.Text;
+using DapperProject.Api.Utils;
 
 namespace DapperProject.Api.Controllers
 {
@@ -16,34 +16,44 @@ namespace DapperProject.Api.Controllers
         private readonly IUnitOfWork _models;
         private readonly IMemoryCache _cache;
         private readonly IRabbitMQRepository _rabbitmqRepository;
+        private readonly MemoryCacheUtils _memoryCacheUtils;
 
-        public UserController(IUnitOfWork models, IMemoryCache cache, IRabbitMQRepository rabbitmqRepository)
+        public UserController(IUnitOfWork models, IMemoryCache cache, IRabbitMQRepository rabbitmqRepository, MemoryCacheUtils memoryCacheUtils)
         {
             _models = models;
             _cache = cache;
             _rabbitmqRepository = rabbitmqRepository;
+            _memoryCacheUtils = memoryCacheUtils;
         }
 
-        [Route("cache")]
+        [Route("{id?}")]
         [HttpGet]
-        public async Task<IActionResult> MemoryCache()
+        public async Task<IActionResult> GetAllOrSingel(int id)
         {
             if (_cache.TryGetValue(userListCacheKey, out IEnumerable<User> users))
             {
+                if (id != 0) {
+                    var user = users.FirstOrDefault(user => user.Id == id);
+                    if(user == null)
+                        return NotFound("user not found");
+                    Console.WriteLine("caching");
+                    return Ok(user);
+                }
                 Console.WriteLine("caching");
                 return Ok(users);
             }
             else
             {
                 users = await _models.Users.GetAllAsync();
-
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                .SetSlidingExpiration(TimeSpan.FromSeconds(10))
-                .SetAbsoluteExpiration(TimeSpan.FromSeconds(50))
-                .SetPriority(CacheItemPriority.Normal)
-                .SetSize(1024);
+                var cacheEntryOptions = _memoryCacheUtils.memoryCacheEntryOptions();
                 _cache.Set(userListCacheKey, users, cacheEntryOptions);
                 Console.WriteLine("not caching");
+                if (id != 0) {
+                    var user = users.FirstOrDefault(user => user.Id == id);
+                    if (user == null)
+                        return NotFound("user not found");
+                    return Ok(user);
+                }
                 return Ok(users);
             }
         }
@@ -72,20 +82,6 @@ namespace DapperProject.Api.Controllers
                 return BadRequest($"Table {table} not exist");
         }
 
-        [Route("{id?}")]
-        [HttpGet]
-        public async Task<IActionResult> GetAllOrSingel(int id)
-        {
-            if (id != 0)
-            {
-                var user = await _models.Users.GetAsync(id);
-                if(user != null)
-                    return Ok(user);
-                return NotFound($"user with id {id} not found");
-            }
-            return Ok(await _models.Users.GetAllAsync());
-        }
-
         [HttpPost]
         public async Task<IActionResult> Add(User entity)
         {
@@ -96,19 +92,15 @@ namespace DapperProject.Api.Controllers
             if (user == null)
                 return BadRequest("data not valid");
 
-            //var factory = new ConnectionFactory() { HostName = "localhost" };
-
-            //using var connection = factory.CreateConnection();
-            //using var channel = connection.CreateModel();
-
-            //channel.QueueDeclare(queue: "sendMail", durable: false, exclusive: false, autoDelete: false, arguments: null);
-
-            //var mail = Encoding.UTF8.GetBytes(entity.Email);
-
-            //channel.BasicPublish(exchange: "", routingKey: "sendMail",  basicProperties: null, body: mail);
-
-
             _rabbitmqRepository.Publisher(entity.Email, "sendMail");
+            if(_cache.TryGetValue(userListCacheKey, out IEnumerable<User> users))
+            {
+                users.Append(entity);
+                var cacheEntryOptions = _memoryCacheUtils.memoryCacheEntryOptions();
+                _cache.Set(userListCacheKey, entity, cacheEntryOptions);
+            }
+ 
+
             return Ok(user);
         }
 
@@ -119,7 +111,12 @@ namespace DapperProject.Api.Controllers
             var user = await _models.Users.GetAsync(id);
             if (user == null)
                 return NotFound($"user with id {id} not found");
-            return Ok(await _models.Users.DeleteAsync(id));
+            var deleted = await _models.Users.DeleteAsync(id);
+            if(_cache.TryGetValue(userListCacheKey, out IEnumerable<User> users))
+            {
+                _cache.Set(userListCacheKey, deleted, _memoryCacheUtils.memoryCacheEntryOptions());
+            }
+            return Ok(deleted);
         }
 
         [HttpPut]
@@ -130,7 +127,14 @@ namespace DapperProject.Api.Controllers
             var user = await _models.Users.GetAsync(entity.Id);
             if (user == null)
                 return NotFound($"user with id {entity.Id} not found");
-            return Ok(await _models.Users.UpdateAsync(entity));
+            
+            var updated = await _models.Users.UpdateAsync(entity);
+            if (_cache.TryGetValue(userListCacheKey, out IEnumerable<User> users))
+            {
+
+                _cache.Set(userListCacheKey, updated, _memoryCacheUtils.memoryCacheEntryOptions());
+            }
+            return Ok(updated);
         }
     }
 }

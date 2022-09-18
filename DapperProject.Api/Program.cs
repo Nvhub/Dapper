@@ -1,6 +1,7 @@
 using DapperProject.Infrastructure.Repositories;
 using DapperProject.Application.Interfaces;
 using DapperProject.Api.Middlewares;
+using DapperProject.Api.Utils;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<IRabbitMQRepository, RabbitMQRepository>();
+builder.Services.AddSingleton<MemoryCacheUtils>();
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();
