@@ -2,12 +2,22 @@
 using RabbitMQ.Client.Events;
 using System.Text;
 
+
 namespace DapperProject.Mailer
 {
     public class Mail
     {
+        private readonly RabbitMQ _rabbitMQ;
+
+        public Mail(RabbitMQ rabbitMQ)
+        {
+            _rabbitMQ = rabbitMQ;
+        }
+
         public static void Main(string[] args)
         {
+
+            Console.WriteLine("Service Mailer Started ");
             var factory = new ConnectionFactory() { HostName = "localhost"};
 
             using var connection = factory.CreateConnection();
@@ -17,8 +27,9 @@ namespace DapperProject.Mailer
 
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += Consumer_Received;
-
             channel.BasicConsume(queue: "sendMail", autoAck: true, consumer);
+            Console.ReadKey();
+
         }
 
         private static void Consumer_Received(object? sender, BasicDeliverEventArgs e)

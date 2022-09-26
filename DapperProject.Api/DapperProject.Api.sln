@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperProject.Application",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperProject.Infrastructure", "..\DapperProject.Infrastructure\DapperProject.Infrastructure.csproj", "{E0A87A1D-0871-4053-8F32-0234D083B7A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperProject.Mailer", "..\DapperProject.Mailer\DapperProject.Mailer.csproj", "{E7DE3B14-8DBA-4217-AC11-B1200CCF9C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperProject.Mailer", "..\DapperProject.Mailer\DapperProject.Mailer.csproj", "{E7DE3B14-8DBA-4217-AC11-B1200CCF9C92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

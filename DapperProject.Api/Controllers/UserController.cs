@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using DapperProject.Application.Interfaces;
 using DapperProject.Core.Entities;
 using Microsoft.Extensions.Caching.Memory;
-using RabbitMQ.Client;
 using DapperProject.Api.Utils;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace DapperProject.Api.Controllers
 {
@@ -17,14 +16,26 @@ namespace DapperProject.Api.Controllers
         private readonly IMemoryCache _cache;
         private readonly IRabbitMQRepository _rabbitmqRepository;
         private readonly MemoryCacheUtils _memoryCacheUtils;
+        private readonly IUserAuthRepository _userAuthRepository;
 
-        public UserController(IUnitOfWork models, IMemoryCache cache, IRabbitMQRepository rabbitmqRepository, MemoryCacheUtils memoryCacheUtils)
+        public UserController(IUserAuthRepository userAuthRepository, IUnitOfWork models, IMemoryCache cache, IRabbitMQRepository rabbitmqRepository, MemoryCacheUtils memoryCacheUtils)
         {
             _models = models;
             _cache = cache;
             _rabbitmqRepository = rabbitmqRepository;
             _memoryCacheUtils = memoryCacheUtils;
+            _userAuthRepository = userAuthRepository;
         }
+
+        [Route("login")]
+        [HttpPost]
+        public async Task<IActionResult> Login(UserAuth userAuth)
+        {
+            var user = await _userAuthRepository.JsonWebTokenGenerate(userAuth);
+            if (user == null)
+                return BadRequest("password or username not valid");
+            return Ok(new JwtSecurityTokenHandler().WriteToken(user));
+        }  
 
         [Route("{id?}")]
         [HttpGet]

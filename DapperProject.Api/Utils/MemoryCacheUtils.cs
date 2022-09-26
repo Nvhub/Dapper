@@ -11,11 +11,11 @@ namespace DapperProject.Api.Utils
             _cache = cache;
         }
 
-        public MemoryCacheEntryOptions memoryCacheEntryOptions()
+        public MemoryCacheEntryOptions memoryCacheEntryOptions(int slidingExpiration = 10, int AbsoluteExpiration = 50)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions()
-            .SetSlidingExpiration(TimeSpan.FromSeconds(10))
-            .SetAbsoluteExpiration(TimeSpan.FromSeconds(50))
+            .SetSlidingExpiration(TimeSpan.FromSeconds(slidingExpiration))
+            .SetAbsoluteExpiration(TimeSpan.FromSeconds(AbsoluteExpiration))
             .SetPriority(CacheItemPriority.Normal)
             .SetSize(1024);
 

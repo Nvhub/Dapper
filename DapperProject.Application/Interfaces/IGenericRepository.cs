@@ -4,7 +4,7 @@
     {
         Task<bool> CreateTableAsync(string table_name);
         Task<bool> DropTableAsync(string table_name);
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<List<T>> GetAllAsync();
         Task<T> GetAsync(int id);
         Task<IEnumerable<T>> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);

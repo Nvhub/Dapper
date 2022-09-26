@@ -1,28 +1,16 @@
-using DapperProject.Infrastructure.Repositories;
-using DapperProject.Application.Interfaces;
-using DapperProject.Api.Middlewares;
-using DapperProject.Api.Utils;
+using DapperProject.Api.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-builder.Services.AddSingleton<IRabbitMQRepository, RabbitMQRepository>();
-builder.Services.AddSingleton<MemoryCacheUtils>();
+builder.Services.AddServices(builder.Configuration);
+builder.Services.AddDependency();
 builder.Services.AddMemoryCache();
 
+
 var app = builder.Build();
-
-//app.UseLogUrlMiddleware();
-
-// Configure the HTTP request pipeline.
 
 
 if (app.Environment.IsDevelopment())
@@ -35,6 +23,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

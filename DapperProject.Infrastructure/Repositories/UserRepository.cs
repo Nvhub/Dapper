@@ -19,15 +19,28 @@ namespace DapperProject.Infrastructure.Repositories
             _sql_connection = configuration.GetConnectionString("DataBaseConnection");
             _connection = new SqlConnection(_sql_connection);
         }
-
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<User> LoginAsync(UserAuth userAuth)
+        {
+            try
+            {
+                var procedure = "login_user";
+                var parameters = new DynamicParameters();
+                var user = await _connection.QueryFirstOrDefaultAsync<User>(procedure, userAuth,commandType : CommandType.StoredProcedure);
+                return user;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public async Task<List<User>> GetAllAsync()
         {
             try
             {
                 //string sql = "SELECT * FROM users";
                 var procedure = "get_all_or_single";
-                var users = await _connection.QueryAsync<User>("get_all_or_single", commandType : CommandType.StoredProcedure);
-                return users;
+                var users = await _connection.QueryAsync<User>(procedure, commandType : CommandType.StoredProcedure);
+                return users.ToList();
             }
             catch
             {

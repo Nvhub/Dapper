@@ -86,3 +86,13 @@ C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\obj\Debug\net6.0
 C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\obj\Debug\net6.0\ref\DapperProject.Api.dll
 C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\RabbitMQ.Client.dll
 C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\obj\Debug\net6.0\DapperProject.Api.Properties.Resources.resources
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.Api\obj\Debug\net6.0\DapperProject.Api.csproj.GenerateResource.cache
