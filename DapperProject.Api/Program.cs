@@ -1,14 +1,11 @@
 using DapperProject.Api.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddServices(builder.Configuration);
 builder.Services.AddDependency();
+builder.Services.AddServices(builder.Configuration);
 builder.Services.AddMemoryCache();
-
 
 var app = builder.Build();
 
@@ -29,5 +26,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGraphQL();
+
+app.MapGraphQLVoyager();
 
 app.Run();

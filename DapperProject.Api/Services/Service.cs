@@ -1,4 +1,6 @@
-﻿namespace DapperProject.Api.Services
+﻿using DapperProject.GraphQL;
+
+namespace DapperProject.Api.Services
 {
     public static class Service
     {
@@ -10,6 +12,7 @@
             services.AddSwaggerGen();
             // Local Service
             services.AddJwtService(config);
+            services.AddGraphQLService();
             return services;
         }
     }

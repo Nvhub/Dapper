@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DapperProject.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -9,6 +10,12 @@ namespace DapperProject.Api.Controllers
     [Authorize]
     public class AdminController : ControllerBase
     {
+        private readonly IUserAuthRepository _userAuthRepository;
+
+        public AdminController(IUserAuthRepository userAuthRepository)
+        {
+            _userAuthRepository = userAuthRepository;
+        }
 
         public class UserLogin
         {
@@ -17,11 +24,11 @@ namespace DapperProject.Api.Controllers
             public string Email { get; set; }
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var user = GetUser();
+            //var user = GetUser();
+            var user = await _userAuthRepository.GetUserLoginAsync(HttpContext.User.Identity as ClaimsIdentity);
             return Ok($" Welcome To Admin Api\n ID : {int.Parse(user.Id)}\n FullName : {user.FullName}\n Email : {user.Email}");
         }
 

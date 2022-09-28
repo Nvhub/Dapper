@@ -27,7 +27,6 @@ namespace DapperProject.Api.Services
                 };
             });
 
-
             // Jwt For Swagger Config
             services.AddSwaggerGen(options =>
             {
@@ -59,6 +58,7 @@ namespace DapperProject.Api.Services
                     }
                 });
             });
+
 
             return services;
         }

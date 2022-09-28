@@ -1,0 +1,17 @@
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\bin\Debug\net6.0\DapperProject.GraphQL.deps.json
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\bin\Debug\net6.0\DapperProject.GraphQL.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\bin\Debug\net6.0\DapperProject.GraphQL.pdb
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\bin\Debug\net6.0\DapperProject.Application.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\bin\Debug\net6.0\DapperProject.Core.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\bin\Debug\net6.0\DapperProject.Application.pdb
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\bin\Debug\net6.0\DapperProject.Core.pdb
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\DapperProject.GraphQL.csproj.AssemblyReference.cache
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\DapperProject.GraphQL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\DapperProject.GraphQL.AssemblyInfoInputs.cache
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\DapperProject.GraphQL.AssemblyInfo.cs
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\DapperProject.GraphQL.csproj.CoreCompileInputs.cache
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\DapperProject.GraphQL.csproj.CopyComplete
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\DapperProject.GraphQL.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\refint\DapperProject.GraphQL.dll
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\DapperProject.GraphQL.pdb
+C:\Users\vniki\OneDrive\Desktop\DapperProject\DapperProject.GraphQL\obj\Debug\net6.0\ref\DapperProject.GraphQL.dll
